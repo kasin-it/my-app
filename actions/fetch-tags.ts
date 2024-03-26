@@ -1,8 +1,7 @@
 import { ColumnName } from "@/types"
 import axios from "axios"
 
-// const API_URL = "https://api.stackexchange.com/2.3/tags"
-const API_URL = "localhost:300"
+const API_URL = "https://api.stackexchange.com/2.3/tags"
 
 export async function fetchTags({
    order,
