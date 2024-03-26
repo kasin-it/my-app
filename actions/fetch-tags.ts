@@ -1,4 +1,4 @@
-import { ColumnName } from "@/types"
+import { ColumnName, SortDirection } from "@/types"
 import axios from "axios"
 
 const API_URL = "https://api.stackexchange.com/2.3/tags"
@@ -9,7 +9,7 @@ export async function fetchTags({
    page,
    pageSize,
 }: {
-   order: "asc" | "desc"
+   order: SortDirection
    sort: ColumnName
    page: number
    pageSize: number
@@ -25,4 +25,13 @@ export async function fetchTags({
    })
 
    return response.data
+
+   //    return {
+   //       items: [
+   //          { name: "sdsfsddf", count: 50 },
+   //          { name: "ssdfdf", count: 54440 },
+   //          { name: "sdf", count: 520 },
+   //       ],
+   //       hasMore: false,
+   //    }
 }

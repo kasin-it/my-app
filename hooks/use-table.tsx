@@ -8,7 +8,8 @@ interface TableStore {
    pageSize: number
    hasMore: boolean
    setPageSize: (pageSizeValue: number) => void
-   setPage: (pageValue: number) => void
+   incrementPage: () => void
+   decrementPage: () => void
    setHasMore: (hasMoreValue: boolean) => void
    setOrder: (OrderValue: SortDirection) => void
    setSort: (columnName: ColumnName) => void
@@ -25,16 +26,14 @@ export const useTableStore = create<TableStore>((set) => ({
          order: orderValue,
       }),
    setSort: (columnName: ColumnName) => set({ sort: columnName }),
-   setPage: (pageValue: number) =>
-      set({
-         page: pageValue,
-      }),
+   incrementPage: () => set((state) => ({ page: state.page + 1 })),
+   decrementPage: () => set((state) => ({ page: state.page - 1 })),
    setPageSize: (pageSizeValue: number) =>
       set({
          pageSize: pageSizeValue,
       }),
    setHasMore: (hasMoreValue: boolean) => {
-      return set({
+      set({
          hasMore: hasMoreValue,
       })
    },

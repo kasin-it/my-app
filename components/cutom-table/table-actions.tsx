@@ -10,20 +10,21 @@ import { useTableStore } from "@/hooks/use-table"
 import { SortDirection } from "@/types"
 
 function TableActions() {
-   const { order, setOrder, pageSize, setPageSize, page, hasMore, setPage } =
-      useTableStore()
+   const { order, setOrder, pageSize, setPageSize } = useTableStore()
 
    return (
       <>
          <Select onValueChange={(value) => setOrder(value as SortDirection)}>
-            <SelectTrigger value={order}>Order: {order}</SelectTrigger>
+            <SelectTrigger className="w-full max-w-[200px]" value={order}>
+               Order: {order}
+            </SelectTrigger>
             <SelectContent>
                <SelectItem value="desc">Descending</SelectItem>
                <SelectItem value="asc">Ascending</SelectItem>
             </SelectContent>
          </Select>
          <Select onValueChange={(value) => setPageSize(parseInt(value))}>
-            <SelectTrigger value={pageSize}>
+            <SelectTrigger className="w-full max-w-[200px]" value={pageSize}>
                Page size: {pageSize}
             </SelectTrigger>
             <SelectContent>
