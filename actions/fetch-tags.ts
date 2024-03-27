@@ -14,24 +14,28 @@ export async function fetchTags({
    page: number
    pageSize: number
 }) {
-   const response = await axios.get(API_URL, {
-      params: {
-         site: "stackoverflow",
-         order,
-         sort,
-         page,
-         pageSize,
-      },
+   // const response = await axios.get(API_URL, {
+   //    params: {
+   //       site: "stackoverflow",
+   //       order,
+   //       sort,
+   //       page,
+   //       pageSize,
+   //    },
+   // })
+
+   // return response.data
+
+   return new Promise((resolve) => {
+      setTimeout(() => {
+         resolve({
+            items: [
+               { name: "sdsfsddf", count: 50 },
+               { name: "ssdfdf", count: 54440 },
+               { name: "sdf", count: 520 },
+            ],
+            hasMore: true,
+         })
+      }, 1000)
    })
-
-   return response.data
-
-   //    return {
-   //       items: [
-   //          { name: "sdsfsddf", count: 50 },
-   //          { name: "ssdfdf", count: 54440 },
-   //          { name: "sdf", count: 520 },
-   //       ],
-   //       hasMore: false,
-   //    }
 }

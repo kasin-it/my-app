@@ -7,7 +7,7 @@ import { fetchTags } from "@/actions/fetch-tags"
 import CustomTable from "@/components/cutom-table/custom-table"
 
 function Home() {
-   const { order, sort, page, pageSize, setSort, setHasMore } = useTableStore()
+   const { order, sort, page, pageSize, setHasMore } = useTableStore()
    const [status, setStatus] = useState<"error" | "noItems" | "loading" | "ok">(
       "loading"
    )
@@ -17,15 +17,13 @@ function Home() {
       queryFn: () => fetchTags({ order, sort, page, pageSize }),
    })
 
-   console.log(data)
-
    useEffect(() => {
       if (isPending) {
          setStatus("loading")
       } else if (error) {
          console.log(error)
          setStatus("error")
-      } else if (data?.items.length < 1) {
+      } else if (!data || !data?.items || data?.items.length < 1) {
          setStatus("noItems")
       } else if (data?.items.length > 0) {
          setStatus("ok")

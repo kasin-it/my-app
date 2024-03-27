@@ -8,33 +8,60 @@ import {
 } from "@/components/ui/select"
 import { useTableStore } from "@/hooks/use-table"
 import { SortDirection } from "@/types"
+import { Label } from "../ui/label"
+import lodash from "lodash"
+import { Input } from "../ui/input"
+import { ChangeEvent } from "react"
 
 function TableActions() {
    const { order, setOrder, pageSize, setPageSize } = useTableStore()
 
+   const debouncedSetPageSize = lodash.debounce(
+      async (event: React.ChangeEvent<HTMLInputElement>) => {
+         setPageSize(parseInt(event.target.value))
+      },
+      300
+   )
+
+   const handleNumberOfRowsChange = async (
+      event: ChangeEvent<HTMLInputElement>
+   ) => {
+      event.target.value = event.target.value.replace(/[^0-9]/g, "")
+
+      if (+event.target.value > 1000) {
+         event.target.value = "" // Reset the input field to an empty string
+      } else {
+         event.target.value = event.target.value || ""
+      }
+
+      debouncedSetPageSize(event)
+   }
+
    return (
       <>
-         <Select onValueChange={(value) => setOrder(value as SortDirection)}>
-            <SelectTrigger className="w-full max-w-[200px]" value={order}>
-               Order: {order}
-            </SelectTrigger>
-            <SelectContent>
-               <SelectItem value="desc">Descending</SelectItem>
-               <SelectItem value="asc">Ascending</SelectItem>
-            </SelectContent>
-         </Select>
-         <Select onValueChange={(value) => setPageSize(parseInt(value))}>
-            <SelectTrigger className="w-full max-w-[200px]" value={pageSize}>
-               Page size: {pageSize}
-            </SelectTrigger>
-            <SelectContent>
-               <SelectItem value="10">10</SelectItem>
-               <SelectItem value="20">20</SelectItem>
-               <SelectItem value="30">30</SelectItem>
-               <SelectItem value="40">40</SelectItem>
-               <SelectItem value="50">50</SelectItem>
-            </SelectContent>
-         </Select>
+         <div>
+            <Label>Number of rows in table:</Label>
+            <Input
+               onChange={(event) => handleNumberOfRowsChange(event)}
+               defaultValue={10}
+               placeholder="Number of rows"
+            />
+         </div>
+         <div>
+            <Label>Order:</Label>
+            <Select onValueChange={(value) => setOrder(value as SortDirection)}>
+               <SelectTrigger
+                  className="w-[150px]  max-w-[200px]"
+                  value={order}
+               >
+                  {order == "asc" ? "Ascending" : "Descending"}
+               </SelectTrigger>
+               <SelectContent>
+                  <SelectItem value="desc">Descending</SelectItem>
+                  <SelectItem value="asc">Ascending</SelectItem>
+               </SelectContent>
+            </Select>
+         </div>
       </>
    )
 }

@@ -53,7 +53,7 @@ function CustomTable({ data, status }: CustomTableProps) {
 
    return (
       <div className="flex flex-col gap-5 p-5 pt-10 sm:p-12">
-         <div className="flex justify-center gap-4">
+         <div className="flex items-end justify-end gap-4">
             <TableActions />
          </div>
          <Table>
@@ -94,7 +94,7 @@ function CustomTable({ data, status }: CustomTableProps) {
          {status == "error" && (
             <div className="flex h-[200px] w-full items-center justify-center">
                <p className=" text-xl font-bold">
-                  Something went wrong, try again.
+                  Something went wrong, check the console for more information.
                </p>
             </div>
          )}
