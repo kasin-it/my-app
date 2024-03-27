@@ -18,7 +18,7 @@ function TableActions() {
 
    const debouncedSetPageSize = lodash.debounce(
       async (event: React.ChangeEvent<HTMLInputElement>) => {
-         setPageSize(parseInt(event.target.value))
+         setPageSize(parseInt(event.target.value) || 0)
       },
       300
    )
@@ -29,7 +29,7 @@ function TableActions() {
       event.target.value = event.target.value.replace(/[^0-9]/g, "")
 
       if (+event.target.value > 1000) {
-         event.target.value = "" // Reset the input field to an empty string
+         event.target.value = ""
       } else {
          event.target.value = event.target.value || ""
       }
@@ -40,7 +40,7 @@ function TableActions() {
    return (
       <>
          <div>
-            <Label>Number of rows in table:</Label>
+            <Label>Number of rows in table: ({pageSize || 0})</Label>
             <Input
                onChange={(event) => handleNumberOfRowsChange(event)}
                defaultValue={10}
