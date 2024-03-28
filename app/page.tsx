@@ -30,10 +30,19 @@ function Home() {
       }
    }, [data, isPending, error])
 
+   console.log(data)
+
    useEffect(() => {
-      setHasMore(data?.hasMore || false)
+      setHasMore(data?.has_more || false)
    }, [page, pageSize, data])
 
-   return <CustomTable status={status} data={data?.items} />
+   return (
+      <main>
+         <h1 className="px-5 pt-12 text-center text-3xl font-semibold">
+            Tag list from stackoverflow API
+         </h1>
+         <CustomTable status={status} data={data?.items} />
+      </main>
+   )
 }
 export default Home

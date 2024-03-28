@@ -28,7 +28,7 @@ function TableActions() {
    ) => {
       event.target.value = event.target.value.replace(/[^0-9]/g, "")
 
-      if (+event.target.value > 1000) {
+      if (+event.target.value > 100) {
          event.target.value = ""
       } else {
          event.target.value = event.target.value || ""
@@ -43,17 +43,14 @@ function TableActions() {
             <Label>Number of rows in table: ({pageSize || 0})</Label>
             <Input
                onChange={(event) => handleNumberOfRowsChange(event)}
-               defaultValue={10}
+               defaultValue={pageSize}
                placeholder="Number of rows"
             />
          </div>
          <div>
             <Label>Order:</Label>
             <Select onValueChange={(value) => setOrder(value as SortDirection)}>
-               <SelectTrigger
-                  className="w-[150px]  max-w-[200px]"
-                  value={order}
-               >
+               <SelectTrigger className="w-[150px] max-w-[200px]" value={order}>
                   {order == "asc" ? "Ascending" : "Descending"}
                </SelectTrigger>
                <SelectContent>
