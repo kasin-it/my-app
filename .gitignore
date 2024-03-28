@@ -14,7 +14,7 @@
 # /out/
 
 # production
-/build
+# /build
 
 # misc
 .DS_Store
@@ -35,4 +35,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-*storybook.log
+# *storybook.log
